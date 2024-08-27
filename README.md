@@ -46,11 +46,13 @@ The GameToken contract is an ERC20-like token contract with basic functionalitie
 ### SecureVault.sol
 The SecureVault contract acts as a vault that manages players and their interactions within the game, using GameToken as the primary in-game currency. Key functionalities include:
 
-1. Player Management: Maintains a record of players (Gamer struct) with attributes like token balance, experience points, achievements, battles won, explorations, voting rights, player level, name, and ban status.
+### 1. Player Management: 
+Maintains a record of players (Gamer struct) with attributes like token balance, experience points, achievements, battles won, explorations, voting rights, player level, name, and ban status.
    
-2. Token Operations: Players can deposit (addTokens) and withdraw (removeTokens) tokens from the vault, with their balances being updated accordingly.
+### 2. Token Operations:
+Players can deposit (addTokens) and withdraw (removeTokens) tokens from the vault, with their balances being updated accordingly.
 
-3. Game Interactions:
+### 3. Game Interactions:
    
    1)Battles and Exploration: Players can engage in battles with other players (engageBattle) or embark on exploration missions (embarkExplore), earning rewards 
      and experience points.
@@ -59,13 +61,13 @@ The SecureVault contract acts as a vault that manages players and their interact
    
    3)Token Transfer: Allows players to transfer their in-game tokens to other players (transferTokens).
    
-4. Leaderboard and Achievements:
+### 4. Leaderboard and Achievements:
    
    1)Leaderboard: Maintains a leaderboard sorted by players' token balances and battle wins (getLeaderboard).
    
    2)Achievements and Rewards: Players can earn additional tokens and rewards based on achievements and participation (rewardAchievements, awardTokenBonus).
    
-5. Player Governance and Moderation:
+### 5. Player Governance and Moderation:
    
    1)Voting Rights: Players can gain voting rights if they accumulate sufficient experience points.
    

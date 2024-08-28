@@ -47,7 +47,7 @@ The GameToken contract is an ERC20-like token contract with basic functionalitie
 The SecureVault contract acts as a vault that manages players and their interactions within the game, using GameToken as the primary in-game currency. Key functionalities include:
 
 ### 1. Player Management: 
-Maintains a record of players (Gamer struct) with attributes like token balance, experience points, achievements, battles won, explorations, voting rights, player level, name, and ban status.
+Maintains a record of players (Gamer struct) with attributes like token balance, experience points, achievements, battles won, explorations, voting rights, player level and name
    
 ### 2. Token Operations:
 Players can deposit (addTokens) and withdraw (removeTokens) tokens from the vault, with their balances being updated accordingly.
@@ -71,9 +71,7 @@ Players can deposit (addTokens) and withdraw (removeTokens) tokens from the vaul
    
    1)Voting Rights: Players can gain voting rights if they accumulate sufficient experience points.
    
-   2)Player Ban: Administrators can ban players who have no tokens or violate game rules (banPlayer).
-   
-   3)Player Data Management: Supports adding new players (addPlayer), simulating battles and explorations for testing purposes, and managing player data.
+   2)Player Data Management: Supports adding new players (addPlayer), simulating battles and explorations for testing purposes, and managing player data.
 
 ## Author:
 Sandeep Kaur @Sandeep1925

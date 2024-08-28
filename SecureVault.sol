@@ -1,10 +1,11 @@
+// Vault.sol
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.17;
 
 import "./GameToken.sol";
 
 contract SecureVault {
-    GameToken public immutable token;
+    ERC20 public immutable token;
 
     struct Gamer {
         uint tokenBalance;
@@ -15,7 +16,6 @@ contract SecureVault {
         bool hasVotingRights;
         uint playerLevel;
         string playerName;
-        bool banned;
     }
 
     uint public totalTokens;
@@ -23,25 +23,18 @@ contract SecureVault {
     address[] public gamerAddresses;
     uint private gamerIndex;
 
-    event PlayerBanned(address indexed gamer);
-    event PlayerUnbanned(address indexed gamer);
-    event TokensAdded(address indexed gamer, uint amount);
-    event TokensRemoved(address indexed gamer, uint amount);
-
     constructor(address _tokenAddress) {
-        token = GameToken(_tokenAddress);
+        token = ERC20(_tokenAddress);
     }
 
     function _createTokens(address _to, uint _quantity) private {
         totalTokens += _quantity;
         gamers[_to].tokenBalance += _quantity;
-        emit TokensAdded(_to, _quantity);
     }
 
     function _destroyTokens(address _from, uint _quantity) private {
         totalTokens -= _quantity;
         gamers[_from].tokenBalance -= _quantity;
-        emit TokensRemoved(_from, _quantity);
     }
 
     function addTokens(uint _amount) external {
@@ -68,7 +61,7 @@ contract SecureVault {
         gamerIndex++;
         address gamerAddress = address(uint160(gamerIndex));
         
-        gamers[gamerAddress] = Gamer(_startTokens, 0, 0, 0, 0, false, _level, _name, false);
+        gamers[gamerAddress] = Gamer(_startTokens, 0, 0, 0, 0, false, _level, _name);
         gamerAddresses.push(gamerAddress);
 
         // Simulate initial battles and explorations for the gamer
@@ -184,31 +177,5 @@ contract SecureVault {
                 }
             }
         }
-    }
-
-    function rewardAchievements(address _gamer) external {
-        require(gamers[_gamer].achievementCount == 0, "Achievements already rewarded");
-        gamers[_gamer].achievementCount++;
-        gamers[_gamer].tokenBalance += 100; // Bonus tokens for achievements
-    }
-
-    function awardTokenBonus(address _gamer, uint _bonusAmount) external {
-        require(_bonusAmount > 0, "Bonus amount must be greater than 0");
-        gamers[_gamer].tokenBalance += _bonusAmount;
-        totalTokens += _bonusAmount;
-    }
-
-    function banPlayer(address _gamer) external {
-        require(gamers[_gamer].tokenBalance == 0, "Cannot ban a player with tokens");
-        require(!gamers[_gamer].banned, "Player is already banned");
-        
-        gamers[_gamer].banned = true;
-        removeGamerData(_gamer);
-        
-        emit PlayerBanned(_gamer);
-    }
-
-    function isPlayerBanned(address _gamer) external view returns (bool) {
-        return gamers[_gamer].banned;
     }
 }
